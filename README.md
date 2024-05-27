@@ -53,3 +53,6 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 - **ntb**: Define las condiciones periódicas. Se utiliza 0 para no PBC, 1 para Vcte y 2 para Pcte.
 
 Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`. Finalmente, se ejecuta el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
+
+
+[Alplalo](https://github.com/Alplalo)
