@@ -1,0 +1,14 @@
+
+ 3-step Production (c) 10ns = 500000/5000 = 100 snapshots = 100 snapshots / ns
+ &cntrl
+     imin=0, irest=1, ntx=5,
+     ntc=2, ntf=2, dt=0.002,
+     cut = 10.0, iwrap = 1,
+     ntb=1, ntp=0,
+     nstlim=5000000,
+     temp0=300.0,
+     ntt=3, gamma_ln=3.0, ig=-1    
+     ntpr=10000,
+     ntwv=0, ntwe=0, ntwx=5000,ntwr=100000,
+ &end
+

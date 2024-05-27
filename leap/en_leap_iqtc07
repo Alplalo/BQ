@@ -1,0 +1,48 @@
+#!/bin/csh                               
+########################################## 
+# Opcions i parametres de l'SGE            
+########################################## 
+# (1) Nom del treball (per identificar     
+#$ -N AP_LEaP
+# (2) Recursos sol.licitats                
+##$ -l h_rt                                
+##$ -l mem_free                            
+# Parallel Environment and number of cores
+#$ -pe smp 1                               
+# Queue
+#$ -q iqtc07.q
+# Shell
+#$ -S /bin/csh
+##$ -l exclusive=true                      
+# (2) Fitxers de sortida                   
+#$ -cwd                                    
+#$ -o Leap_OUT.out              
+#$ -e Leap_ERR.err              
+# (4) Envia un mail quan acava el treball. 
+##$ -m e                                   
+##$ -M  jaime.rubio@ub.edu                 
+########################################## 
+# Entorn d.usuari                          
+########################################## 
+# Es carreguen els moduls a utilitzar      
+. /etc/profile
+module load amber/20_gcc   
+########################################## 
+echo " SGE_O_WORKDIR : $SGE_O_WORKDIR"     
+echo "nslots  : $NSLOTS "                  
+echo "TMP DIR   : $TMPDIR"                 
+cd $TMPDIR                                 
+########################################## 
+# calcul                                   
+########################################## 
+echo "AMBERHOME   : $AMBERHOME "                   
+pwd
+
+#                                          
+    cp $SGE_O_WORKDIR/leap.inp $TMPDIR/
+    cp $SGE_O_WORKDIR/*pdb     $TMPDIR/
+
+    $AMBERHOME/bin/tleap  -f leap.inp
+
+    cp $TMPDIR/* $SGE_O_WORKDIR/
+

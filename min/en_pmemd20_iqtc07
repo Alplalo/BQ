@@ -1,0 +1,43 @@
+#!/bin/bash
+##########################################
+# Opcions i parametres de l'SGE
+##########################################
+# (1) Nom del treball (per identificar
+#$ -N AP_MIN  
+# (2) Recursos sol.licitats
+##$ -l h_rt
+##$ -l mem_free
+#$ -pe smp 4
+##$ -l exclusive=true
+# (2) Fitxers de sortida
+#$ -cwd
+#$ -o GDock4_90.out
+#$ -e GDock4_90.err
+# (4) Envia un mail quan acava el treball.
+##$ -m e
+##$ -M  jaime.rubio@ub.edu
+##########################################
+# User
+##########################################
+#  modules
+#source /opt/modules/init/bash
+. /etc/profile
+module load amber/20_gcc      
+##########################################
+echo " SGE_O_WORKDIR : $SGE_O_WORKDIR"
+echo "nslots  : $NSLOTS "
+echo "TMP DIR   : $TMPDIR"
+cd $TMPDIR
+##########################################
+# Run      
+##########################################
+#
+  $SGE_O_WORKDIR/run_pmemd20  chignolin_1_min  chignolin  chignolin           crd 
+  $SGE_O_WORKDIR/run_pmemd20  chignolin_2_min  chignolin  chignolin_1_min     rst 
+
+##$SGE_O_WORKDIR/run_pmemd20  chignolin_01_dyn  chignolin  chignolin_1_min     rst 
+##$SGE_O_WORKDIR/run_pmemd14  chignolin_02_dyn  chignolin  chignolin_01_dyn    rst 
+##$SGE_O_WORKDIR/run_pmemd14  chignolin_1_dyn   chignolin  chignolin_02_dyn    rst 
+##$SGE_O_WORKDIR/run_pmemd14  chignolin_2_dyn   chignolin  chignolin_1_dyn     rst
+#
+

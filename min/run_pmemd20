@@ -1,0 +1,39 @@
+#!/bin/sh -f
+#
+echo "AMBERHOME : $AMBERHOME"
+echo "TMP DIR   : $TMPDIR"
+echo "SGE_O_WORKDIR : $SGE_O_WORKDIR"
+echo "nslots : $NSLOTS"
+echo "Var1    : $1"
+echo "Var2    : $2"
+echo "Var3    : $3"
+
+#
+## GENERA EL DIRECTORIO DE TRABAJO EN EL NODO DE TRABAJO
+#
+
+mpirun  -np $NSLOTS $AMBERHOME/bin/pmemd.MPI        \
+                           -i   $SGE_O_WORKDIR/$1.in     \
+                           -o   $TMPDIR/$1.out           \
+                           -p   $SGE_O_WORKDIR/$2.top        \
+                           -c   $SGE_O_WORKDIR/$3.$4         \
+                           -ref $SGE_O_WORKDIR/$3.$4         \
+                           -r   $TMPDIR/$1.rst           \
+                           -e   $TMPDIR/$1.mden          \
+                           -x   $TMPDIR/$1.nc            \
+                           -v   $TMPDIR/$1.mdvel         \
+                           -l   $TMPDIR/$1.log       \
+                           -inf $TMPDIR/$1.inf
+#
+## COPIA LOS OUTPUTS DEL NODO DE TRABAJO
+#
+ cp     $TMPDIR/$1.out     $SGE_O_WORKDIR
+ cp     $TMPDIR/$1.rst     $SGE_O_WORKDIR
+ cp     $TMPDIR/$1.mden    $SGE_O_WORKDIR
+ cp     $TMPDIR/$1.nc      $SGE_O_WORKDIR
+## cp     $TMPDIR/$1.mdvel   $SGE_O_WORKDIR
+ cp     $TMPDIR/$1.inf     $SGE_O_WORKDIR
+ cp     $TMPDIR/amd.log    $SGE_O_WORKDIR/$1.log
+ cp     $TMPDIR/scaledMD.log   $SGE_O_WORKDIR/$1.log
+
+#

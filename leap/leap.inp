@@ -1,0 +1,21 @@
+source leaprc.protein.ff14SB 
+source leaprc.water.tip3p
+source leaprc.gaff
+loadAmberParams frcmod.ionsjc_tip3p
+
+peptide = sequence {NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}
+
+solvatebox  peptide TIP3PBOX  15.0 1.8
+
+addions peptide Na+ 0
+addions peptide Cl- 0
+
+check peptide
+
+saveamberparm peptide  chignolin.top  chignolin.crd
+savepdb       peptide  chignolin_leap.pdb
+
+quit
+
+
+peptide =  loadPdb chignolin.pdb
