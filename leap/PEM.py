@@ -1,8 +1,7 @@
 # Crear PEM (Potencial electrostatico molecular) a partir del .top y .crd
 
 import numpy as np
-from numba import jit
-
+from scipy.ndimage import convolve
 
 # Leer chignolin.top para obtener nombres de atomos y cargas usando %FLAG ATOM_NAME y %FLAG CHARGE
 def read_top(top_file):
@@ -91,33 +90,46 @@ def PEM(atom_name, charge, x, y, z):
                 for l in range(N):
                     r = np.sqrt((x_range[i]-x[l])**2 + (y_range[j]-y[l])**2 + (z_range[k]-z[l])**2)
                     PEM[i,j,k] += charge[l]*factor/r
-
-    # Buscar los 2 minimos de PEM
+    
+    
+    # Buscar el primer mínimo de PEM
     min1 = np.min(PEM)
     min1_index = np.where(PEM == min1)
-    PEM[min1_index] = 1000
-    # Subir el minimo a 1000 y los de alrededor a 1000
-    rango1 = 10
-    rango2 = -10
-    for i in range(rango2,rango1):
-        for j in range(rango2,rango1):
-            for k in range(rango2,rango1):
-                PEM[min1_index[0][0]+i, min1_index[1][0]+j, min1_index[2][0]+k] = 1000
-
-    min2 = np.min(PEM)
-    min2_index = np.where(PEM == min2)
-    PEM[min1_index] = min1
-
+    
+    # Crear un kernel lleno de unos
+    dimension = 9
+    kernel = np.ones((dimension, dimension, dimension))
+    
+    # Crear una matriz del mismo tamaño que PEM, pero llena de ceros
+    PEM_mask = np.zeros_like(PEM)
+    
+    # Establecer la ubicación del primer mínimo en la máscara a 1
+    PEM_mask[min1_index] = 1
+    
+    # Convolucionar la máscara con el kernel para obtener una nueva máscara que tiene unos en un radio de 1 alrededor del primer mínimo
+    PEM_mask = convolve(PEM_mask, kernel, mode='constant', cval=0)
+    
+    # Crear una copia de PEM y elevar los valores alrededor del primer mínimo a 1000
+    PEM_copy = PEM.copy()
+    PEM_copy[PEM_mask == 1] = 1000
+    
+    # Buscar el segundo mínimo en la copia de PEM
+    min2 = np.min(PEM_copy)
+    min2_index = np.where(PEM_copy == min2)
+    
     # Coordenadas de los 2 minimos
     x_min1 = x_range[min1_index[0][0]]
     y_min1 = y_range[min1_index[1][0]]
     z_min1 = z_range[min1_index[2][0]]
-    x_min2 = x_range[min2_index[0][0]]
-    y_min2 = y_range[min2_index[1][0]]
-    z_min2 = z_range[min2_index[2][0]]
+    x_min2 = x_range[min2_index[0][0]]  # Restar 10 debido al padding
+    y_min2 = y_range[min2_index[1][0]]  # Restar 10 debido al padding
+    z_min2 = z_range[min2_index[2][0]]  # Restar 10 debido al padding
     x_center = 18.512 + 15.081
     y_center = 20.830 + 3.130
     z_center = 21.239 + 5.624
+    x_center = 0
+    y_center = 0
+    z_center = 0
     print('Minimo 1:', x_min1 - x_center, y_min1 - y_center, z_min1 - z_center)
     print('Minimo 2:', x_min2 - x_center, y_min2 - y_center, z_min2 - z_center)
     return PEM, x_range, y_range, z_range, min1, min2, min1_index, min2_index
