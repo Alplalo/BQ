@@ -68,7 +68,7 @@ def PEM(atom_name, charge, x, y, z):
     y = y[:N]
     z = z[:N]
     extra = 5
-    distancia_malla = 0.1
+    distancia_malla = 0.5
     charge = charge[:N]
     xmin = min(x)
     ymin = min(y)
@@ -97,8 +97,8 @@ def PEM(atom_name, charge, x, y, z):
     min1_index = np.where(PEM == min1)
     PEM[min1_index] = 1000
     # Subir el minimo a 1000 y los de alrededor a 1000
-    rango1 = 8
-    rango2 = -8
+    rango1 = 10
+    rango2 = -10
     for i in range(rango2,rango1):
         for j in range(rango2,rango1):
             for k in range(rango2,rango1):
@@ -115,8 +115,11 @@ def PEM(atom_name, charge, x, y, z):
     x_min2 = x_range[min2_index[0][0]]
     y_min2 = y_range[min2_index[1][0]]
     z_min2 = z_range[min2_index[2][0]]
-    print('Minimo 1:', x_min1, y_min1, z_min1)
-    print('Minimo 2:', x_min2, y_min2, z_min2)
+    x_center = 18.512 + 15.081
+    y_center = 20.830 + 3.130
+    z_center = 21.239 + 5.624
+    print('Minimo 1:', x_min1 - x_center, y_min1 - y_center, z_min1 - z_center)
+    print('Minimo 2:', x_min2 - x_center, y_min2 - y_center, z_min2 - z_center)
     return PEM, x_range, y_range, z_range, min1, min2, min1_index, min2_index
 
 # Escribir minimos
