@@ -1,6 +1,6 @@
-# ############ BIOQUIMICA ##############
-# ######## DINAMICA MOLECULAR ##########
-# ########### ALBERT PLAZAS ############
+<!-- ############ BIOQUIMICA ##############>
+<!-- ######## DINAMICA MOLECULAR ##########>
+<!-- ########### ALBERT PLAZAS ############>
 
 
 # LEaP: Descripción y Uso
