@@ -56,4 +56,4 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`, este ejecuta el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
 
 
-by [Alplalo](https://github.com/Alplalo)
+by [Albert Plazas](https://github.com/Alplalo)
