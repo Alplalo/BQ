@@ -31,7 +31,7 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 > [!WARNING]
 > Se intenta generar una imagen del potencial electrostático molecular (PEM).
 
-## Visualización
+## Visualización en VMD
 
 - El archivo top se lee en formato Amber7 Parm, seguido de la carga de coordenadas (CRD) utilizando el formato Amber7 Restart.
 
@@ -53,7 +53,7 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - **ntb**: Define las condiciones periódicas. Se utiliza 0 para no PBC, 1 para Vcte y 2 para Pcte.
 
-Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`. Finalmente, se ejecuta el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
+Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`, este ejecuta el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
 
 
 by [Alplalo](https://github.com/Alplalo)
