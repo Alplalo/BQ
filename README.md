@@ -28,7 +28,8 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - Se ha modificado el aminoácido 7 (GLY) por MET.
 
-- Se intenta generar una imagen del potencial electrostático molecular (PEM).
+> [!WARNING]
+> Se intenta generar una imagen del potencial electrostático molecular (PEM).
 
 ## Visualización
 
