@@ -1,23 +1,21 @@
-# DINAMICA MOLECULAR CON AMBER
+<h1> DINAMICA MOLECULAR CON AMBER </h1>
 
-## Índice
+<h2>  Índice </h2>
 
-- [DINAMICA MOLECULAR CON AMBER](#dinamica-molecular-con-amber)
-  - [Índice](#índice)
-  - [LEaP](#leap)
-    - [Descripción](#descripción)
-    - [Uso](#uso)
-      - [Funciones Principales](#funciones-principales)
-    - [Modificaciones](#modificaciones)
-    - [Visualización en VMD](#visualización-en-vmd)
-  - [Minimización](#minimización)
-    - [Descripción](#descripción-1)
-    - [Uso](#uso-1)
-      - [Funciones Principales](#funciones-principales-1)
-  - [Heating](#heating)
-    - [Descripción](#descripción-2)
-    - [Uso](#uso-2)
-      - [Funciones Principales](#funciones-principales-2)
+- [LEaP](#leap)
+  - [Descripción](#descripción)
+  - [Uso](#uso)
+    - [Funciones Principales](#funciones-principales)
+  - [Modificaciones](#modificaciones)
+  - [Visualización en VMD](#visualización-en-vmd)
+- [Minimización](#minimización)
+  - [Descripción](#descripción-1)
+  - [Uso](#uso-1)
+    - [Funciones Principales](#funciones-principales-1)
+- [Heating](#heating)
+  - [Descripción](#descripción-2)
+  - [Uso](#uso-2)
+    - [Funciones Principales](#funciones-principales-2)
 
 ## LEaP
 
