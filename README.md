@@ -1,5 +1,24 @@
 # DINAMICA MOLECULAR CON AMBER
 
+## Índice
+
+- [DINAMICA MOLECULAR CON AMBER](#dinamica-molecular-con-amber)
+  - [Índice](#índice)
+  - [LEaP](#leap)
+    - [Descripción](#descripción)
+    - [Uso](#uso)
+      - [Funciones Principales](#funciones-principales)
+    - [Modificaciones](#modificaciones)
+    - [Visualización en VMD](#visualización-en-vmd)
+  - [Minimización](#minimización)
+    - [Descripción](#descripción-1)
+    - [Uso](#uso-1)
+      - [Funciones Principales](#funciones-principales-1)
+  - [Heating](#heating)
+    - [Descripción](#descripción-2)
+    - [Uso](#uso-2)
+      - [Funciones Principales](#funciones-principales-2)
+
 ## LEaP
 
 ### Descripción
@@ -71,7 +90,7 @@ El proceso de calentamiento (heating) implica llevar a cabo una dinámica molecu
 
 ### Uso
 
-#### Funciones Principales Nuevas
+#### Funciones Principales
 
 - **ntc**: Se establece en 2 para aplicar restricciones a los enlaces con hidrógeno, y en 0 para no aplicar restricciones.
 
