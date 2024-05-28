@@ -1,5 +1,8 @@
 #!/bin/bash
 ##########################################
+####### Bioquimica Computacional #########
+############# Albert Plazas ##############
+##########################################
 # Opcions i parametres de l'SGE
 ##########################################
 # (1) Nom del treball (per identificar

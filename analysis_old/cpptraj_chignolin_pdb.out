@@ -1,0 +1,78 @@
+
+CPPTRAJ: Trajectory Analysis. V4.25.6 (AmberTools V20.15) MPI
+    ___  ___  ___  ___
+     | \/ | \/ | \/ | 
+    _|_/\_|_/\_|_/\_|_
+
+| Running on 1 processes.
+| Date/time: 05/28/24 11:22:00
+| Available memory: 449.649 GB
+
+	Reading '/home/cmm18/BQ/amber/analysis/chignolin.top' as Amber Topology
+	Radius Set: modified Bondi radii (mbondi)
+INPUT: Reading input from 'STDIN'
+  [trajin /home/cmm18/BQ/amber/analysis/chignolin_1_dyn.nc 1 last 1]
+	Reading '/home/cmm18/BQ/amber/analysis/chignolin_1_dyn.nc' as Amber NetCDF
+  [autoimage]
+    AUTOIMAGE: To box center based on center of mass, anchor is first molecule.
+  [strip :WAT,Na+,Cl-]
+    STRIP: Stripping atoms in mask [:WAT,Na+,Cl-]
+  [trajout chignolin_1_dyn.pdb pdb]
+	Writing 'chignolin_1_dyn.pdb' as PDB
+  [go]
+---------- RUN BEGIN -------------------------------------------------
+
+PARAMETER FILES (1 total):
+ 0: chignolin.top, 12605 atoms, 4167 res, box: Orthogonal, 4158 mol, 4155 solvent
+
+INPUT TRAJECTORIES (1 total):
+ 0: 'chignolin_1_dyn.nc' is a NetCDF AMBER trajectory with coordinates, time, box, Parm chignolin.top (Orthogonal box) (reading 100 of 100)
+  Coordinate processing will occur on 100 frames.
+
+OUTPUT TRAJECTORIES (1 total):
+  'chignolin_1_dyn.pdb' (100 frames) is a PDB file
+
+PARALLEL INFO:
+  Process 0 will handle 100 frames.
+.....................................................
+ACTION SETUP FOR PARM 'chignolin.top' (2 actions):
+  0: [autoimage]
+	Using first molecule as anchor.
+	4157 molecules are mobile.
+  1: [strip :WAT,Na+,Cl-]
+	Stripping 12467 atoms.
+	Stripped topology: 138 atoms, 10 res, box: Orthogonal, 1 mol
+Warning: For PDB with MODEL, box coords for first frame only will be written to CRYST1.
+Warning: No PDB space group specified.
+.....................................................
+ACTIVE OUTPUT TRAJECTORIES (1):
+  chignolin_1_dyn.pdb (coordinates, time, box)
+
+BEGIN PARALLEL TRAJECTORY PROCESSING:
+ 0% 10% 20% 30% 40% 51% 61% 71% 81% 91% 100% Complete.
+TIME: Rank 0 throughput= 664.0415 frames / second.
+TIME: Avg. throughput= 664.0194 frames / second.
+
+ACTION OUTPUT:
+TIME: Analyses took 0.0000 seconds.
+
+RUN TIMING:
+TIME:		Init               : 0.0026 s (  1.70%)
+TIME:		Trajectory Process : 0.1506 s ( 97.81%)
+TIME:		Data Set Sync      : 0.0000 s (  0.00%)
+TIME:		Action Post        : 0.0000 s (  0.00%)
+TIME:		Analysis           : 0.0000 s (  0.00%)
+TIME:		Data File Write    : 0.0000 s (  0.00%)
+TIME:		Other              : 0.0007 s (  0.00%)
+TIME:	Run Total 0.1540 s
+---------- RUN END ---------------------------------------------------
+TIME: Total execution time: 0.1749 seconds.
+--------------------------------------------------------------------------------
+To cite CPPTRAJ use:
+Daniel R. Roe and Thomas E. Cheatham, III, "PTRAJ and CPPTRAJ: Software for
+  Processing and Analysis of Molecular Dynamics Trajectory Data". J. Chem.
+  Theory Comput., 2013, 9 (7), pp 3084-3095.
+Daniel R. Roe and Thomas E. Cheatham, III, "Parallelization of CPPTRAJ enables
+  large scale analysis of molecular dynamics trajectory data". J. Comp.
+  Chem., 2018, DOI: 10.1002/jcc25382.
+

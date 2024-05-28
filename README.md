@@ -1,12 +1,14 @@
-# LEaP: Descripción y Uso
+# DINAMICA MOLECULAR CON AMBER
 
-## Descripción
+## LEaP: Descripción y Uso
+
+### Descripción
 
 LEaP es una herramienta utilizada para la preparación de sistemas moleculares en dinámica molecular, especialmente en el contexto de simulaciones con el software Amber. Este README proporciona una guía básica sobre las principales funciones y modificaciones que se pueden realizar con LEaP, así como los pasos para la visualización y minimización de sistemas moleculares.
 
-## Uso
+### Uso
 
-### Funciones Principales
+#### Funciones Principales
 
 - **source**: Se utiliza para cargar paquetes o librerías en el programa.
 
@@ -31,11 +33,17 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 > [!WARNING]
 > Se intenta generar una imagen del potencial electrostático molecular (PEM).
 
-## Visualización en VMD
+### Visualización en VMD
 
 - El archivo top se lee en formato Amber7 Parm, seguido de la carga de coordenadas (CRD) utilizando el formato Amber7 Restart.
 
 ## Minimización
+
+### Descripción
+
+### Uso
+
+#### Funciones Principales
 
 - Al crear la caja, pueden quedar espacios vacíos alrededor de la proteína debido a la eliminación de agua que esté muy cerca de esta. Para resolverlo, se realiza una minimización del sistema, pasando de un ensamble NVT a NPT y modificando el volumen de la caja.
 
@@ -54,6 +62,33 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 - **ntb**: Define las condiciones periódicas. Se utiliza 0 para no PBC, 1 para Vcte y 2 para Pcte.
 
 Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`, este ejecuta el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
+
+
+## Heating
+
+### Descripción
+
+### Uso
+
+#### Funciones Principales nuevas
+
+- **ntc**: 2 para hacer constrain de los enlaces con hidrogenos. 0 para no hacerlo
+
+- **ntf**: lo mismo que el anterior.
+
+- **dt**: El incremento de tiempo de la dinamica.
+
+- **nstlim**: Numero de pasos de la dinamica.
+
+- **ntp**: Control de presion: 0 = no Pscale, 1 = isotropic, 2 = anisotropic.
+
+- **temp0**: Temperatura objetivo.
+
+- **ntt**,**gamma_ln**,**ig**: Control de Temperatura : Termostato de Langevin
+
+- **ntwv**: Cada cuantos pasos escribimos coordenadas.
+
+- **iwrap**: The crd written will be 'wrapped' into a primary box.
 
 
 by [Albert Plazas](https://github.com/Alplalo)

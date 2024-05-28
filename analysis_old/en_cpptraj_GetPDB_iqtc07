@@ -1,0 +1,53 @@
+#!/bin/bash                              
+########################################## 
+# Opcions i parametres de l'SGE            
+########################################## 
+# (1) Nom del treball (per identificar     
+#$ -N CExtractPDB              
+# (2) Recursos sol.licitats                
+##$ -l h_rt                                
+##$ -l mem_free                            
+#$ -pe smp 1                               
+##$ -l exclusive=true                      
+# (2) Fitxers de sortida                   
+#$ -cwd                                    
+#$ -o EaMSc039.out              
+#$ -e EaMSc039.err              
+# (4) Envia un mail quan acava el treball. 
+##$ -m e                                   
+##$ -M  jaime.rubio@ub.edu                 
+########################################## 
+# Entorn d.usuari                          
+########################################## 
+# Es carreguen els moduls a utilitzar      
+. /etc/profile                    
+module load amber/20_gcc   
+########################################## 
+echo " SGE_O_WORKDIR : $SGE_O_WORKDIR"     
+echo "nslots  : $NSLOTS "                  
+echo "TMP DIR   : $TMPDIR"                 
+cd $TMPDIR                                 
+########################################## 
+# calcul                                   
+########################################## 
+set RUN=/home/g6jaime/jaime/run            
+echo "RUN DIR   : $RUN "                   
+echo "AMBERHOME   : $AMBERHOME "                   
+pwd
+
+#                                          
+mpirun  -np 1 $AMBERHOME/bin/cpptraj.MPI $SGE_O_WORKDIR/chignolin.top   > cpptraj_chignolin_pdb.out << EOF
+
+trajin    $SGE_O_WORKDIR/chignolin_1_dyn.rst
+
+autoimage
+
+strip :WAT,Na+,Cl-
+
+trajout chignolin_1_dyn.pdb  pdb
+
+go
+EOF
+#
+cp $TMPDIR/* $SGE_O_WORKDIR/
+

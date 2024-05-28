@@ -1,0 +1,17 @@
+ SGE_O_WORKDIR : /home/cmm18/BQ/amber/dyn
+nslots  : 4 
+TMP DIR   : /scratch/149764.1.iqtc07.q
+AMBERHOME : /aplic/amber/amber20_gcc/
+TMP DIR   : /scratch/149764.1.iqtc07.q
+SGE_O_WORKDIR : /home/cmm18/BQ/amber/dyn
+nslots : 4
+Var1    : chignolin_01_dyn
+Var2    : chignolin
+Var3    : chignolin_2_min
+AMBERHOME : /aplic/amber/amber20_gcc/
+TMP DIR   : /scratch/149764.1.iqtc07.q
+SGE_O_WORKDIR : /home/cmm18/BQ/amber/dyn
+nslots : 4
+Var1    : chignolin_02_dyn
+Var2    : chignolin
+Var3    : chignolin_01_dyn

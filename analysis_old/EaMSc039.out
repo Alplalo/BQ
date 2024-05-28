@@ -1,0 +1,6 @@
+ SGE_O_WORKDIR : /home/cmm18/BQ/amber/analysis
+nslots  : 1 
+TMP DIR   : /scratch/149774.1.iqtc07.q
+RUN DIR   :  
+AMBERHOME   : /aplic/amber/amber20_gcc/ 
+/scratch/149774.1.iqtc07.q
