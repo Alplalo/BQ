@@ -35,7 +35,7 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - **additions**: Añade iones para neutralizar la carga neta de la caja. La opción 0 permite que el programa calcule cuántos iones son necesarios para la neutralización y los añade automáticamente.
 
-- **check**: Realiza un chequeo de la proteína para verificar que todo esté correcto. Para proteínas grandes, este proceso puede tardar considerablemente.
+- **check**: Realiza un chequeo de la proteína para verificar que todo esté correcto. Para proteínas grandes, este proceso puede tomar un tiempo.
 
 - **saveamberparm**: Genera archivos de topología y coordenadas en formato .top y .crd respectivamente.
 
@@ -47,9 +47,6 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - Se ha modificado el aminoácido 7 (GLY) por MET.
 
-> [!WARNING]
-> Actualmente intentando generar una imagen del potencial electrostático molecular (PEM).
-
 ### Visualización en VMD
 
 - El archivo top se lee en formato Amber7 Parm, seguido de la carga de coordenadas (CRD) utilizando el formato Amber7 Restart.
@@ -58,7 +55,7 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 ### Descripción
 
-Durante la creación de la caja, es común que queden espacios vacíos alrededor de la proteína debido a la eliminación del agua que esté muy cerca de esta. Para abordar este problema y garantizar que la estructura molecular esté bien equilibrada, se lleva a cabo un proceso de minimización del sistema. Esta minimización implica pasar de un ensamble NVT a NPT, lo que implica ajustar el volumen de la caja para eliminar estos espacios vacíos.
+Durante la creación de la caja, es común que algunos átomos queden demasiado cerca de otros, lo que provoca que el gradiente sea elevado dando así fuerzas que podrian romper el sistema, para ello primero minimizamos el sistema. Lo mas comun es hacerlo por partes, primero modificar los H de la proteina, luego minimizar las aguas del sistema y por ultimo minimizar todo el sistema.
 
 ### Uso
 
