@@ -12,7 +12,7 @@
 
 ### Descripción
 
-LEaP es una herramienta utilizada para la preparación de sistemas moleculares en dinámica molecular dentro del entorno de AMBER. Permite construir sistemas, anñadir solvente e iones, y generar los archivos necesarios para simulaciones.
+LEaP es una herramienta para la preparación de sistemas moleculares en dinámica molecular dentro del entorno de AMBER. Permite construir sistemas, anñadir solvente e iones, y generar los archivos necesarios para la simulación.
 
 ### Uso
 
