@@ -49,10 +49,10 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 Es recomendable visualizar el sistema antes de avanzar con los siguientes pasos para estar seguro de que no se ha producido algun error en la creación del sistema.
 
-Programas para visualizar:
-    - VMD
-    - Pymol
-    - ChimeraX
+Programas para visualizar:  
+    - VMD  
+    - Pymol  
+    - ChimeraX  
 
 ## Minimización
 
