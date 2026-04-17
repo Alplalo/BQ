@@ -6,7 +6,7 @@
 - [Minimización](#minimización)
 - [Heating](#heating)
 - [Producción](#producción)
-- [Descripción Flags AMBER](#descripción flags amber)
+- [Descripción Flags AMBER](#descripción-flags-amber)
 
 ## LEaP
 
