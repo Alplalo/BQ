@@ -1,106 +1,158 @@
-<h1> DINAMICA MOLECULAR CON AMBER </h1>
+# DINAMICA MOLECULAR CON AMBER
 
-<h2>  Índice </h2>
+## Índice
 
 - [LEaP](#leap)
-  - [Descripción](#descripción)
-  - [Uso](#uso)
-    - [Funciones Principales](#funciones-principales)
-  - [Modificaciones](#modificaciones)
-  - [Visualización en VMD](#visualización-en-vmd)
 - [Minimización](#minimización)
-  - [Descripción](#descripción-1)
-  - [Uso](#uso-1)
-    - [Funciones Principales](#funciones-principales-1)
 - [Heating](#heating)
-  - [Descripción](#descripción-2)
-  - [Uso](#uso-2)
-    - [Funciones Principales](#funciones-principales-2)
 
 ## LEaP
 
 ### Descripción
 
-LEaP es una herramienta utilizada para la preparación de sistemas moleculares en dinámica molecular, especialmente en el contexto de simulaciones con el software Amber. Este README proporciona una guía básica sobre las principales funciones y modificaciones que se pueden realizar con LEaP, así como los pasos para la visualización y minimización de sistemas moleculares.
+LEaP es una herramienta utilizada para la preparación de sistemas moleculares en dinámica molecular dentro del entorno de AMBER. Permite construir sistemas, anñadir solvente e iones, y generar los archivos necesarios para simulaciones.
 
 ### Uso
 
 #### Funciones Principales
 
-- **source**: Se utiliza para cargar campos de fuerza o librerías en el programa.\n
-    Ejemplo :`source leaprc.protein.ff14SB`
+- **`source`**: Comando para cargar campos de fuerza o librerías necesarias para definir los parámetros del sistema.   
+    Ejemplo:`source leaprc.protein.ff14SB`
 
-- **crear objeto**: Se puede crear un objeto con una secuencia específica utilizando la sintaxis `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`. También se puede crearlo leyendo un archivo PDB usando `peptide = loadPdb chinolindo.pdb`.
+- **Cargar parámetros externos**: Si añades moleculas no estándar o parametrizadas, es necesario cargar sus parámetros.  
+    Ejemplo: `loadAmberParms ligand.frcmod` / `loadoff ligand.lib`
 
-- **solvatebox**: Se utiliza para solvatar un objeto con algun tipo de caja y solvente, puede ser cubica, octaedrica o lo que te permita. Funcina dandole una distancia que sera la distancia mas cercana entre la proteina y una pared de la caja. 
+- **crear objeto**:
+  - Se puede crear un objeto con una secuencia específica (No muy usado debido a que no defines estructura 3D) `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`.
+  - También se puede crear leyendo un archivo PDB `peptide = loadPdb chinolindo.pdb`.
 
-- **additions**: Añade iones para neutralizar la carga neta de la caja. La opción 0 permite que el programa calcule cuántos iones son necesarios para la neutralización y los añade automáticamente.
+- **`solvatebox`**: Solvata el sistema en una caja con aguas.  
+    Ejemplo:`solvateBox peptide TIP3PBOX 15.0` (15.0 Amstrongs es la distancia mínima que definimos entre la proteína y el borde de la caja)
 
-- **check**: Realiza un chequeo de la proteína para verificar que todo esté correcto. Para proteínas grandes, este proceso puede tomar un tiempo.
+- **`charge`**: Calcula la carga actual del sistema.
+    Ejemplo: `charge peptide`
 
-- **saveamberparm**: Genera archivos de topología y coordenadas en formato .top y .crd respectivamente.
+- **`addIons`**: Añade iones al sistema. La opción 0 permite que el programa calcule cuántos iones son necesarios para neutralizar la carga total del sistema.
+    Ejemplo: `addIons peptide Na+ 0`
 
-- **savepdb**: Permite guardar la estructura en formato PDB.
+- **`check`**: Verifica que el sistema esté bien (átomos que falten, enlaces, ...)
 
-- **quit**: Detiene la ejecución del programa.
+- **`saveamberparm`**: Genera archivos de topología y coordenadas.  
+    Ejemplo: `saveAmberParm peptide system.prmtop system.inpcrd`
+
+- **`savePdb`**: Genera el sistema en formato PDB.
+    Ejemplo: `savePdb peptide system.pdb`
+
+- **`quit`**: Detiene la ejecución del programa.
 
 ### Visualización en VMD
 
-- El archivo top se lee en formato Amber7 Parm, seguido de la carga de coordenadas (CRD) utilizando el formato Amber7 Restart.
+Para visualizar el sitema en VMD.
+1. Cargar la topología:
+   - Formato: Amber Parm (prmtop)
+2. Cargar coordenadas:
+   - Formato: Amber Restart (inpcrd)
 
 ## Minimización
 
 ### Descripción
 
-Durante la creación de la caja, es común que algunos átomos queden demasiado cerca de otros, lo que provoca que el gradiente sea elevado dando así fuerzas que podrian romper el sistema, para ello primero minimizamos el sistema. Lo mas comun es hacerlo por partes, primero modificar los H de la proteina, luego minimizar las aguas del sistema y por ultimo minimizar todo el sistema.
+Minimizar es el primer paso tras montar el sistema. El objetivo de la minimización es eliminar contactos estéricos desfavorables y reducir los gradientes de fuerzas que pueden provocar inestabilidad o roturas en la simulación.
+
+En sistemas grandes es recomendable hacer la minimización por etapas.
+
+  1. Relajar hidrógenos
+  2. Relajar solvente
+  3. Relajar todo el sistema
 
 ### Uso
 
+Ejemplo etapa final minimización:
+```bash
+Minimización general
+&cntrl
+  imin=1,
+  maxcyc=10000,
+  ncyc=2000,
+  cut=10.0,
+  ntb=1,
+/
+```
 #### Funciones Principales
 
-- **imin**: Se establece en 0 para realizar una dinámica molecular y en 1 para iniciar el proceso de minimización.
+- **`imin=1`**: Activa el modo minimi.
 
-- **irest**: Se establece en 0 si es el primer cálculo de velocidades, en caso contrario, se modifica para mantener la misma dinámica.
+- **`maxcyc`**: Número total de pasos de minimización.
 
-- **ntx**: Similar a irest, pero aplicado a las coordenadas.
+- **`ncyc`**: Número de pasos usando Steepest Descent. El resto hasta llegar al maxcyc será usando Conjugate Gradient.
 
-- **cut**: Define el rango de corte para crear la lista de Verlet de los vecinos de cada átomo.
+- **`cut`**: Cutoff de interacciones entre atomos no enlazados (Amstrongs).
 
-- **maxcyc**: Define el número máximo de iteraciones en el proceso de minimización. En este caso, se utiliza el método de gradiente descendente (SD).
-
-- **ntpr**: Determina cada cuántos pasos se imprime la información de la minimización.
-
-- **ntb**: Define las condiciones periódicas. Se utiliza 0 para no PBC, 1 para Vcte y 2 para Pcte.
-
-Se realizan dos minimizaciones en cadena utilizando el ejecutable `en_pmemd20_iqtc07`. Este ejecutable a su vez invoca el programa `run_pmemd20`, proporcionando el archivo de entrada, la topología, las coordenadas y una última columna con la extensión de las coordenadas.
+- **`ntb`**: Tipo de condiciones de contorno. Este es para volumen constante.
 
 ## Heating
 
 ### Descripción
 
-El proceso de calentamiento (heating) implica llevar a cabo una dinámica molecular corta donde se aplica un termostato para gradualmente elevar la temperatura del sistema a un valor específico, típicamente 300K. Este paso es crucial para simular el entorno del cuerpo humano y establecer las condiciones iniciales de la dinámica molecular.
+El heating consiste en aumentar gradualmente la temperatura del sistema de 0K hasta la temperatura objetivo, normalmente 300K, evitando cambios bruscos que puedan desestabilizar la simulación.
 
 ### Uso
 
+Ejemplo heating:
+
+``` bash 
+Heating de 0 a 300K
+&cntrl
+  imin=0, ntx=1, irest=0,
+  nstlim=50000, dt=0.002,
+
+  ntc=2, ntf=2,
+  cut=10.0,
+
+  ntb=1,
+  ntt=3, gamma_ln=1.0,
+
+  tempi=0.0, temp0=300.0,
+
+  ntpr=500, ntwx=500,
+  nmropt=1,
+/
+&wt type='TEMP0', istep1=0, istep2=50000, value1=0.0, value2=300.0 /
+&wt type='END' /
+
+```
+
 #### Funciones Principales
 
-- **ntc**: Se establece en 2 para aplicar restricciones a los enlaces con hidrógeno, y en 0 para no aplicar restricciones.
+- **`imin=0`**: Activa dinámica molecular.
 
-- **ntf**: Similar a ntc.
+- **`ntx`**: = 1 (inicia desde estructura, sin velocidades).
 
-- **dt**: Incremento de tiempo en la dinámica.
+- **`irest`**: = 0 (no es continuacion de otra dinámica).
 
-- **nstlim**: Número total de pasos de la dinámica.
+- **`nstlim`**: Número de pasos de la dinámica.
 
-- **ntp**: Control de presión: se establece en 0 para no escalar la presión, 1 para isotrópica y 2 para anisotrópica.
+- **`dt`**: Paso de integración (ps).
 
-- **temp0**: Temperatura objetivo del sistema.
+- **`ntc=2` / `ntf=2`**: Constriñe enlaces con H / No calcula fuerzas en esos enlaces (SHAKE).
 
-- **ntt**, **gamma_ln**, **ig**: Control de temperatura utilizando el termostato de Langevin.
+- **`ntb`**: = 1 (volumen constante).
 
-- **ntwv**: Determina la frecuencia con la que se escriben las coordenadas.
+- **`ntt`**: Control de temperatura (Termostato).
+  - = 3 Langevin  
 
-- **iwrap**: Indica si las coordenadas escritas se "envuelven" en una caja primaria.
+- **`gamma_ln`**: Coeficiente de fricción.
+
+- **`tempi` / `temp0`**: Temperatura inicial / Temperatura del termostato (a la que pendirá el sistema).
+
+- Definir incremento de la temperatura en la dinámica:
+
+``` bash
+&wt type='TEMP0', istep1=0, istep2=50000, value1=0.0, value2=300.0 /
+&wt type='END' /
+```
+Modifica el valor de temp0 de un valor inicial (value1) a uno final (value2) durante un step inicial (istep1) y uno final (istep2). 
+  
 
 
 by [Albert Plazas](https://github.com/Alplalo)
