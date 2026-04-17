@@ -244,9 +244,11 @@ Producción MD
 
 - **`gamma_ln`**: Coeficiente de fricción.
 
+- **`taup`**: Tiempo de relajación de la presión.
+
 - **`tempi` / `temp0`**: Temperatura inicial / Temperatura del termostato (a la que tendirá el sistema).
 
-- **`taup`**: Tiempo de relajación de la presión.
+
   
 
 
