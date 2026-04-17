@@ -339,7 +339,7 @@ Producción MD
   - Útil para evitar drift del sistema (típico: `nscm=1000` o similar).
 
 
-### 9) Restraints y control por etapas (min/heat/equil)
+### 9) Restraints y control por etapas
 
 - **`ntr`** (opcional)
   - Activa restraints armónicos.
