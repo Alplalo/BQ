@@ -27,11 +27,12 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 #### Funciones Principales
 
-- **source**: Se utiliza para cargar paquetes o librerías en el programa.
+- **source**: Se utiliza para cargar campos de fuerza o librerías en el programa.
+    ejemplo :`source leaprc.protein.ff14SB`
 
-- **crear objeto**: Se puede crear un objeto con una secuencia específica utilizando la sintaxis `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`. También es posible crearlo leyendo un archivo PDB mediante `peptide = loadPdb chignolin.pdb`.
+- **crear objeto**: Se puede crear un objeto con una secuencia específica utilizando la sintaxis `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`. También se puede crearlo leyendo un archivo PDB usando `peptide = loadPdb chinolindo.pdb`.
 
-- **solvatebox**: Se utiliza para solvatar un objeto con un tipo de caja, manteniendo una distancia mínima. Si el agua está a una cierta distancia del péptido, se elimina. En este caso se utiliza la siguiente sintaxis: `solvatebox (objeto: peptide, solvente: TIP3PBOX, distancia mínima del péptido al límite de la caja: 15.0, distancia para eliminar aguas: 1.8)`.
+- **solvatebox**: Se utiliza para solvatar un objeto con algun tipo de caja y solvente, puede ser cubica, octaedrica o lo que te permita. Funcina dandole una distancia que sera la distancia mas cercana entre la proteina y una pared de la caja. 
 
 - **additions**: Añade iones para neutralizar la carga neta de la caja. La opción 0 permite que el programa calcule cuántos iones son necesarios para la neutralización y los añade automáticamente.
 
@@ -41,11 +42,7 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - **savepdb**: Permite guardar la estructura en formato PDB.
 
-- **quit**: Detiene la ejecución del programa en ese punto.
-
-### Modificaciones
-
-- Se ha modificado el aminoácido 7 (GLY) por MET.
+- **quit**: Detiene la ejecución del programa.
 
 ### Visualización en VMD
 
