@@ -217,36 +217,140 @@ Producción MD
 
 ## Descripción Flags AMBER
 
-- **`imin`**: = 1 (Activa el modo minimización), = 0 (Activa el modo dinámica).
+> Nota rápida:
+> - **Minimización**: normalmente con `sander`.
+> - **Heating/Equilibración/Producción**: normalmente con `pmemd.cuda`.
 
-- **`maxcyc`**: Número total de pasos de minimización.
+### 1) Modo de ejecución (minimización vs dinámica)
 
-- **`ncyc`**: Número de pasos usando Steepest Descent. El resto hasta llegar al maxcyc será usando Conjugate Gradient.
+- **`imin`**
+  - `imin=1`: minimización de energía
+  - `imin=0`: dinámica molecular (MD)
 
-- **`cut`**: Cutoff de interacciones entre atomos no enlazados (Amstrongs).
+- **`maxcyc`** (minimización)
+  - Pasos totales de minimización.
 
-- **`ntx`**: = 1 (inicia desde estructura, sin velocidades).
+- **`ncyc`** (minimización)
+  - Pasos con *Steepest Descent*, el resto hasta `maxcyc` con *Conjugate Gradient*.
 
-- **`irest`**: = 0 (no es continuacion de otra dinámica).
+- **`ntmin`** (minimización, opcional)
+  - Selecciona el método de minimización (si no lo pones, AMBER usa el default).
 
-- **`ntb`**: = 1 (Volumen constante), = 2 (Presión constante).
+- **`drms`** (minimización)
+  - Criterio de convergencia (RMS del gradiente). Si se alcanza antes de `maxcyc`, se para.
 
-- **`ntp`**: = 1 (Control de presión isotrópico, la caja escala igual en todas las direcciones).
 
-- **`nstlim`**: Número de pasos de la dinámica.
+### 2) Reinicios: cómo empezar vs cómo continuar
 
-- **`dt`**: Paso de integración (ps).
+- **`ntx`** + **`irest`**
+  - **Nueva simulación (sin velocidades)**:
+    - `ntx=1, irest=0`
+  - **Continuación desde restart (con velocidades)**:
+    - `ntx=5, irest=1`
 
-- **`ntc=2` / `ntf=2`**: Constriñe enlaces con H / No calcula fuerzas en esos enlaces (SHAKE).
+> Regla práctica:
+> - Si sales de *minimización* → *heating*: `ntx=1, irest=0` (porque vienes de coordenadas sin velocidades).
+> - Si sales de *heating/density/producción* → siguiente etapa: `ntx=5, irest=1`.
 
-- **`ntt`**: Control de temperatura (Termostato).
-  - = 3 Langevin  
 
-- **`gamma_ln`**: Coeficiente de fricción.
+### 3) Tiempo, integración y constraints
 
-- **`taup`**: Tiempo de relajación de la presión.
+- **`nstlim`**
+  - Número de pasos de MD.
 
-- **`tempi` / `temp0`**: Temperatura inicial / Temperatura del termostato (a la que tendirá el sistema).
+- **`dt`**
+  - Paso de integración (ps).
+  - Típico con SHAKE en H: `dt=0.002` (2 fs).
+
+- **`ntc`** / **`ntf`**
+  - Controlan constraints (SHAKE) y cálculo de fuerzas en enlaces a H.
+  - Caso típico:
+    - `ntc=2, ntf=2` → constraints en enlaces con H y no se calculan fuerzas en esos enlaces.
+
+- **`tol`** (opcional)
+  - Tolerancia de SHAKE.
+
+
+### 4) No enlazadas y PME (explícito)
+
+- **`cut`**
+  - Cutoff (Å) para interacciones no enlazadas de corto alcance.
+  - Valores típicos: `8.0` o `10.0` Å.
+
+> En explícito con AMBER, PME suele estar activo/gestionado para electrostática de largo alcance
+> (dependiendo del engine/condiciones); `cut` sigue siendo relevante para la parte directa/VDW.
+
+
+### 5) Condiciones periódicas / volumen / presión (NVT vs NPT)
+
+- **`ntb`**
+  - `ntb=1`: volumen constante (NVT; PBC activas)
+  - `ntb=2`: permite cambio de volumen (necesario para NPT)
+
+- **`ntp`** (solo si `ntb=2`)
+  - `ntp=0`: sin control de presión (no NPT)
+  - `ntp=1`: presión isotrópica (la caja escala igual en todas las direcciones)
+
+- **`pres0`** (NPT, opcional)
+  - Presión objetivo (por defecto 1 atm).
+  - Ejemplo: `pres0=1.0`
+
+- **`taup`** (NPT)
+  - Tiempo de acoplamiento de la presión (ps). Normalmente: `taup=1.0` a `2.0`.
+
+
+### 6) Control de temperatura (termostato)
+
+- **`ntt`**
+  - `ntt=3`: Langevin (mas usado en `pmemd.cuda`)
+
+- **`gamma_ln`** (solo si `ntt=3`)
+  - Coeficiente de fricción (1/ps). Normalmente: `gamma_ln=1.0`.
+
+- **`tempi`** / **`temp0`**
+  - `tempi`: temperatura inicial (K)
+  - `temp0`: temperatura objetivo del termostato (K)
+
+
+### 7) Outputs
+
+- **`ntpr`**
+  - Cada cuántos pasos imprime energías al output.
+
+- **`ntwx`**
+  - Cada cuántos pasos escribe la trayectoria (mdcrd / NetCDF).
+
+- **`ntwr`**
+  - Cada cuántos pasos escribe el archivo de restart (`.rst` / `.ncrst`).
+
+- **`ioutfm`** (opcional)
+  - Controla el formato de trayectoria (ASCII vs NetCDF).
+  - Normalmente se usa NetCDF.
+
+
+### 8) “Calidad de vida”: PBC wrap y centro de masa
+
+- **`iwrap`** (opcional)
+  - Envuelve (wrap) coordenadas a la caja periódica al escribir coordenadas/trajectoria.
+  - Útil para visualización (evita moléculas “partidas” por PBC).
+
+- **`nscm`** (opcional)
+  - Elimina el movimiento del centro de masa cada N pasos.
+  - Útil para evitar drift del sistema (típico: `nscm=1000` o similar).
+
+
+### 9) Restraints y control por etapas (min/heat/equil)
+
+- **`ntr`** (opcional)
+  - Activa restraints armónicos.
+
+- **`restraint_wt`** / **`restraintmask`** (si `ntr=1`)
+  - `restraint_wt`: fuerza del restraint (kcal/mol·Å²)
+  - `restraintmask`: selección de átomos, ej. `':1-XXX & !@H='` para aplicar restraint.
+
+- **`nmropt`** + `&wt` (heating por rampa)
+  - `nmropt=1` activa el control de NMR-style changes.
+  - Con `&wt type='TEMP0'` puedes hacer la rampa 0→300K suave.
 
 
   
