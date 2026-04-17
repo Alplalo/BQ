@@ -45,13 +45,14 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 - **`quit`**: Detiene la ejecución del programa.
 
-### Visualización en VMD
+### Visualización del sistema
 
-Para visualizar el sitema en VMD.
-1. Cargar la topología:
-   - Formato: Amber Parm (prmtop)
-2. Cargar coordenadas:
-   - Formato: Amber Restart (inpcrd)
+Es recomendable visualizar el sistema antes de avanzar con los siguientes pasos para estar seguro de que no se ha producido algun error en la creación del sistema.
+
+Programas para visualizar:
+    - VMD
+    - Pymol
+    - ChimeraX
 
 ## Minimización
 
