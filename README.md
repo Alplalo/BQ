@@ -27,8 +27,8 @@ LEaP es una herramienta utilizada para la preparación de sistemas moleculares e
 
 #### Funciones Principales
 
-- **source**: Se utiliza para cargar campos de fuerza o librerías en el programa.
-    ejemplo :`source leaprc.protein.ff14SB`
+- **source**: Se utiliza para cargar campos de fuerza o librerías en el programa.\n
+    Ejemplo :`source leaprc.protein.ff14SB`
 
 - **crear objeto**: Se puede crear un objeto con una secuencia específica utilizando la sintaxis `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`. También se puede crearlo leyendo un archivo PDB usando `peptide = loadPdb chinolindo.pdb`.
 
