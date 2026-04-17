@@ -143,7 +143,7 @@ Heating de 0 a 300K
 
 - **`gamma_ln`**: Coeficiente de fricción.
 
-- **`tempi` / `temp0`**: Temperatura inicial / Temperatura del termostato (a la que pendirá el sistema).
+- **`tempi` / `temp0`**: Temperatura inicial / Temperatura del termostato (a la que tendirá el sistema).
 
 - Definir incremento de la temperatura en la dinámica:
 
