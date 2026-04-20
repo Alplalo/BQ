@@ -2,13 +2,13 @@
 
 ## Índice
 
-- [LEaP](#leap)
-- [Minimización](#minimización)
-- [Heating](#heating)
-- [Producción](#producción)
+- [1.LEaP](#1.leap)
+- [2.Minimización](#2.minimización)
+- [3.Heating](#3.heating)
+- [4.Producción](#4.producción)
 - [Descripción Flags AMBER](#descripción-flags-amber)
 
-## LEaP
+## 1.LEaP
 
 ### Descripción
 
@@ -88,7 +88,7 @@ Programas para visualizar:
     - Pymol  
     - ChimeraX  
 
-## Minimización
+## 2.Minimización
 
 ### Descripción
 
@@ -149,7 +149,7 @@ Minimización general
 &end
 ```
 
-## Heating
+## 3.Heating
 
 ### Descripción
 
@@ -189,7 +189,7 @@ Heating de 0 a 300K
 ```
 Modifica el valor de temp0 de un valor inicial (value1) a uno final (value2) entre un step inicial (istep1) y uno final (istep2).
 
-## Density
+## 4.Density
 
 ### Descripción
 
