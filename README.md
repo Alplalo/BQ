@@ -292,7 +292,6 @@ Producción MD
 
 - **`dt`**
   - Paso de integración (ps).
-  - Típico con SHAKE en H: `dt=0.002` (2 fs).
 
 - **`ntc`** / **`ntf`**
   - Controlan constraints (SHAKE) y cálculo de fuerzas en enlaces a H.
@@ -308,9 +307,6 @@ Producción MD
 - **`cut`**
   - Cutoff (Å) para interacciones no enlazadas de corto alcance.
   - Valores típicos: `8.0` o `10.0` Å.
-
-> En explícito con AMBER, PME suele estar activo/gestionado para electrostática de largo alcance
-> (dependiendo del engine/condiciones); `cut` sigue siendo relevante para la parte directa/VDW.
 
 
 ### 5) Condiciones periódicas / volumen / presión (NVT vs NPT)
@@ -364,11 +360,9 @@ Producción MD
 
 - **`iwrap`** (opcional)
   - Envuelve (wrap) coordenadas a la caja periódica al escribir coordenadas/trajectoria.
-  - Útil para visualización (evita moléculas “partidas” por PBC).
 
 - **`nscm`** (opcional)
   - Elimina el movimiento del centro de masa cada N pasos.
-  - Útil para evitar drift del sistema (típico: `nscm=1000` o similar).
 
 
 ### 9) Restraints y control por etapas
