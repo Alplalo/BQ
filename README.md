@@ -88,7 +88,7 @@ Programas para visualizar:
     - Pymol  
     - ChimeraX  
 
-## 2.Minimización
+## 2. Minimización
 
 ### Descripción
 
@@ -149,7 +149,7 @@ Minimización general
 &end
 ```
 
-## 3.Heating
+## 3. Heating
 
 ### Descripción
 
@@ -189,7 +189,7 @@ Heating de 0 a 300K
 ```
 Modifica el valor de temp0 de un valor inicial (value1) a uno final (value2) entre un step inicial (istep1) y uno final (istep2).
 
-## 4.Density
+## 4. Density
 
 ### Descripción
 
