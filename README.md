@@ -36,7 +36,6 @@ charge complejo
 solvateBox complejo TIP3PBOX 12.0
 
 # 6. Neutralización
-# Añadimos iones para neutralizar
 addIons complejo Na+ 0
 addIons complejo Cl- 0
 
