@@ -16,6 +16,39 @@ LEaP es una herramienta para la preparación de sistemas moleculares en dinámic
 
 ### Uso
 
+```bash
+# 1. Cargar campos de fuerza (Proteína y Agua)
+source leaprc.protein.ff14SB
+source leaprc.water.tip3p
+
+# 2. Cargar parámetros del ligando
+loadAmberParams ligando.frcmod
+loadoff ligando.lib
+
+# 3. Cargar la estructura del complejo
+complejo = loadPdb complejo_inicial.pdb
+
+# 4. Verificar carga inicial y enlaces
+check complejo
+charge complejo
+
+# 5. Solvatación
+solvateBox complejo TIP3PBOX 12.0
+
+# 6. Neutralización
+# Añadimos iones para neutralizar
+addIons complejo Na+ 0
+addIons complejo Cl- 0
+
+# 7. Verificación final y guardado
+check complejo
+savePdb complejo sistema_final.pdb
+saveAmberParm complejo sistema_final.prmtop sistema_final.inpcrd
+
+# 8. Salir
+quit
+```
+
 #### Funciones Principales
 
 - **`source`**: Comando para cargar campos de fuerza o librerías necesarias para definir los parámetros del sistema.   
