@@ -58,25 +58,25 @@ quit
     - Ejemplo: `loadAmberParms ligand.frcmod` / `loadoff ligand.lib`
 
 - **crear objeto**:
-  - Se puede crear un objeto con una secuencia específica (No muy usado debido a que no defines estructura 3D) `peptide = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`.
-  - También se puede crear leyendo un archivo PDB `peptide = loadPdb chinolindo.pdb`.
+  - Se puede crear un objeto con una secuencia específica (No muy usado debido a que no defines estructura 3D) `complejo = sequence{NGLY TYR ASP PRO GLU THR MET THR TRP CGLY}`.
+  - También se puede crear leyendo un archivo PDB `complejo = loadPdb chinolindo.pdb`.
 
 - **`solvatebox`**: Solvata el sistema en una caja con aguas.  
-    - Ejemplo:`solvateBox peptide TIP3PBOX 15.0` (15.0 Amstrongs es la distancia mínima que definimos entre la proteína y el borde de la caja)
+    - Ejemplo:`solvateBox complejo TIP3PBOX 15.0` (15.0 Amstrongs es la distancia mínima que definimos entre la proteína y el borde de la caja)
 
 - **`charge`**: Calcula la carga actual del sistema.
-    - Ejemplo: `charge peptide`
+    - Ejemplo: `charge complejo`
 
 - **`addIons`**: Añade iones al sistema. La opción 0 permite que el programa calcule cuántos iones son necesarios para neutralizar la carga total del sistema.  
-    - Ejemplo: `addIons peptide Na+ 0`
+    - Ejemplo: `addIons complejo Na+ 0`
 
-- **`check`**: Verifica que el sistema esté bien (átomos que falten, enlaces, ...)
+- **`check compejo`**: Verifica que el sistema esté bien (átomos que falten, enlaces, ...)
 
 - **`saveamberparm`**: Genera archivos de topología y coordenadas.  
-    - Ejemplo: `saveAmberParm peptide system.prmtop system.inpcrd`
+    - Ejemplo: `saveAmberParm complejo system.prmtop system.inpcrd`
 
 - **`savePdb`**: Genera el sistema en formato PDB.
-    - Ejemplo: `savePdb peptide system.pdb`
+    - Ejemplo: `savePdb complejo system.pdb`
 
 - **`quit`**: Detiene la ejecución del programa.
 
