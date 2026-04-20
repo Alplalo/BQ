@@ -21,7 +21,7 @@ LEaP es una herramienta para la preparación de sistemas moleculares en dinámic
 source leaprc.protein.ff14SB
 source leaprc.water.tip3p
 
-# 2. Cargar parámetros del ligando
+# 2. Cargar parámetros del ligando (solo si existe ligando)
 loadAmberParams ligando.frcmod
 loadoff ligando.lib
 
