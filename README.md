@@ -250,7 +250,7 @@ Producción MD
 ## Descripción Flags AMBER
 
 > Nota rápida:
-> - **Minimización**: normalmente con `sander`.
+> - **Minimización**: normalmente con `sander`/`sander.MPI`.
 > - **Heating/Equilibración/Producción**: normalmente con `pmemd.cuda`.
 
 ### 1) Modo de ejecución (minimización vs dinámica)
